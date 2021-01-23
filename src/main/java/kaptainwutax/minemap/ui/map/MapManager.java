@@ -45,7 +45,7 @@ public class MapManager {
     public MapManager(MapPanel panel, int blocksPerFragment) {
         this.panel = panel;
         this.blocksPerFragment = blocksPerFragment;
-        this.pixelsPerFragment = (int) (300.0D * (this.blocksPerFragment / DEFAULT_REGION_SIZE));
+        this.pixelsPerFragment = (int) (256.0D * (this.blocksPerFragment / DEFAULT_REGION_SIZE));
 
         this.panel.addMouseMotionListener(Events.Mouse.onDragged(e -> {
             if (SwingUtilities.isLeftMouseButton(e)) {
@@ -102,18 +102,18 @@ public class MapManager {
                 double newPixelsPerFragment = this.pixelsPerFragment;
 
                 if (e.getUnitsToScroll() > 0) {
-                    newPixelsPerFragment /= e.getUnitsToScroll() / 2.0D;
+                    newPixelsPerFragment /= 2.0D;
                 } else {
-                    newPixelsPerFragment *= -e.getUnitsToScroll() / 2.0D;
+                    newPixelsPerFragment *= 2.0D;
                 }
 
-                if (newPixelsPerFragment > 2000.0D * (double) this.blocksPerFragment / DEFAULT_REGION_SIZE) {
-                    newPixelsPerFragment = 2000.0D * (this.blocksPerFragment / 512.0D);
+                if (newPixelsPerFragment > 2048.0D * (double) this.blocksPerFragment / DEFAULT_REGION_SIZE) {
+                    newPixelsPerFragment = 2048.0D * (this.blocksPerFragment / 512.0D);
                 }
 
                 if (Configs.USER_PROFILE.getUserSettings().restrictMaximumZoom
-                        && newPixelsPerFragment < 40.0D * (double) this.blocksPerFragment / DEFAULT_REGION_SIZE) {
-                    newPixelsPerFragment = 40.0D * (this.blocksPerFragment / 512.0D);
+                        && newPixelsPerFragment < 32.0D * (double) this.blocksPerFragment / DEFAULT_REGION_SIZE) {
+                    newPixelsPerFragment = 32.0D * (this.blocksPerFragment / 512.0D);
                 }
 
                 double scaleFactor = newPixelsPerFragment / this.pixelsPerFragment;
